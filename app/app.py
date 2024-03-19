@@ -27,7 +27,7 @@ from datetime import datetime
 import random
 
 # Required for JWT authentication
-# import jwt
+import jwt
 from dotmap import DotMap
 from http.cookies import SimpleCookie
 
@@ -35,9 +35,8 @@ from typing import Optional
 
 def setup_runnable():
     memory = cl.user_session.get("memory")
-    model = AzureChatOpenAI(temperature = 0.8,
+    model = AzureChatOpenAI(temperature = 0.4,
                             streaming=True,
-                            # azure_openai_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
                             openai_api_version="2024-02-15-preview",
                             azure_deployment="gpt-4-32k",
                             )
@@ -107,21 +106,6 @@ async def on_chat_start():
 
 
 
-# @cl.on_chat_resume
-# async def on_chat_resume(thread: ThreadDict):
-#     memory = ConversationBufferMemory(return_messages=True)
-#     root_messages = [m for m in thread["steps"] if m["parentId"] == None]
-#     for message in root_messages:
-#         if message["type"] == "USER_MESSAGE":
-#             memory.chat_memory.add_user_message(message["output"])
-#         else:
-#             memory.chat_memory.add_ai_message(message["output"])
-
-#     cl.user_session.set("memory", memory)
-
-#     setup_runnable()
-
-
 @cl.on_message
 async def on_message(message: cl.Message):
     memory = cl.user_session.get("memory")
@@ -162,9 +146,6 @@ def end():
     print(f"Goodbye {user.identifier}")
     logger.debug(f"Chat ended by user {user.identifier}")
 
-# @cl.password_auth_callback
-# def auth():
-#     return cl.User(identifier="test")
 
 @cl.header_auth_callback
 def header_auth_callback(headers: dict) -> Optional[cl.User]:
