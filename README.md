@@ -1,5 +1,6 @@
 # storm
- STORM: Socratic Thought and Reflection-Oriented Mentor
+
+STORM: Socratic Thought and Reflection-Oriented Mentor
 
 ## Chainlit example app for use with ltijs
 
@@ -16,6 +17,10 @@ docker compose -f docker-compose.yml up --build --force-recreate
 To run the docker container in the background
 
 docker compose -f docker-compose.yml up -d
+
+To run the docker container with a volume mount for chat logs (i.e. on the server)
+
+docker compose -f docker-compose.yml -f docker-compose-vols.yml up -d
 
 By default the container is exposed on 5001
 To secure this container with https, an nginx reverse proxy should be used and configured with a subdomain under the same parent domain as the ltijs container.
