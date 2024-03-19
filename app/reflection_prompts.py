@@ -139,7 +139,7 @@ needed
 - lack of evaluative questions
 
 If the student talks about emotional or mental health issues, you should respond
-with the following messag:
+with the following message:
 
 "Falls du dich unwohl fühlst, mentale Probleme hast oder dich vom Stress
 überwältigt fühlst, empfehlen wir, die Webseite der [Beratungsstelle der Berner
