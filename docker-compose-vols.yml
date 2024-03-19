@@ -1,0 +1,6 @@
+version: "3.8"
+
+services:
+  chainlit:
+    volumes:
+      - /var/log/chainlit:/usr/app/logs
