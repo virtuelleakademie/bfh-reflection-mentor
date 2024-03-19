@@ -10,14 +10,14 @@ from langchain.memory import ConversationBufferMemory
 from chainlit.types import ThreadDict
 import chainlit as cl
 
-from message_logger import (
+from .message_logger import (
     setup_file_logger,
     LogMessage, 
     StudentLogMessage,
     MentorLogMessage
 )
 
-from reflection_prompts import (
+from .reflection_prompts import (
     initial_messages,
     mentor_message
 )
@@ -38,7 +38,6 @@ def setup_runnable():
     memory = cl.user_session.get("memory")
     model = AzureChatOpenAI(temperature = 0.8,
                             streaming=True,
-                            # azure_openai_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
                             openai_api_version="2024-02-15-preview",
                             azure_deployment="gpt-4-32k",
                             )
