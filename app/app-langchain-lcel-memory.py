@@ -36,7 +36,7 @@ courseid = 'Stat-101'
 
 def setup_runnable():
     memory = cl.user_session.get("memory")
-    model = AzureChatOpenAI(temperature = 0.8,
+    model = AzureChatOpenAI(temperature = 0.4,
                             streaming=True,
                             openai_api_version="2024-02-15-preview",
                             azure_deployment="gpt-4-32k",
@@ -59,10 +59,6 @@ def setup_runnable():
     )
     cl.user_session.set("runnable", runnable)
 
-
-@cl.password_auth_callback
-def auth():
-    return cl.User(identifier="test")
 
 @cl.set_chat_profiles
 async def chat_profile(current_user: cl.User):
@@ -128,21 +124,6 @@ async def on_chat_start():
 
 
 
-# @cl.on_chat_resume
-# async def on_chat_resume(thread: ThreadDict):
-#     memory = ConversationBufferMemory(return_messages=True)
-#     root_messages = [m for m in thread["steps"] if m["parentId"] == None]
-#     for message in root_messages:
-#         if message["type"] == "USER_MESSAGE":
-#             memory.chat_memory.add_user_message(message["output"])
-#         else:
-#             memory.chat_memory.add_ai_message(message["output"])
-
-#     cl.user_session.set("memory", memory)
-
-#     setup_runnable()
-
-
 @cl.on_message
 async def on_message(message: cl.Message):
     memory = cl.user_session.get("memory")
@@ -182,3 +163,8 @@ def end():
     user = current_user
     print(f"Goodbye {SESSION_ID}")
     logger.debug(f"Chat ended by user {user.identifier}")
+
+
+@cl.password_auth_callback
+def auth():
+    return cl.User(identifier="test")
