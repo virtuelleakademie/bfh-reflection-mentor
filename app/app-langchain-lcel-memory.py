@@ -10,14 +10,14 @@ from langchain.memory import ConversationBufferMemory
 from chainlit.types import ThreadDict
 import chainlit as cl
 
-from .message_logger import (
+from message_logger import (
     setup_file_logger,
     LogMessage, 
     StudentLogMessage,
     MentorLogMessage
 )
 
-from .reflection_prompts import (
+from reflection_prompts import (
     initial_messages,
     mentor_message
 )
