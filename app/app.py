@@ -145,6 +145,7 @@ async def on_message(message: cl.Message):
 @cl.on_chat_end
 def end():
     logger = cl.user_session.get("logger")
+    user = cl.user_session.get("user")
 
     print(f"Goodbye {user.identifier}")
     logger.debug(f"Chat ended by user {user.identifier}")
