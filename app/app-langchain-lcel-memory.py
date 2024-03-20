@@ -60,21 +60,23 @@ def setup_runnable():
     cl.user_session.set("runnable", runnable)
 
 
-@cl.set_chat_profiles
-async def chat_profile(current_user: cl.User):
-    # print(f"User: {current_user}")
-    user = current_user
-    if user:
-        # Access metadata
-        role = user.metadata.get('role')
-        provider = user.metadata.get('provider')
-        platform_id = user.metadata.get('platform-id')
-        courseid = user.metadata.get('courseid')
-        print(f"User: {user} \n Role: {role} \n Provider: {provider} \n Platform ID: {platform_id} \n Course ID: {courseid}")
+# @cl.set_chat_profiles
+# async def chat_profile(current_user: cl.User):
+#     # print(f"User: {current_user}")
+#     user = current_user
+#     if user:
+#         # Access metadata
+#         role = user.metadata.get('role')
+#         provider = user.metadata.get('provider')
+#         platform_id = user.metadata.get('platform-id')
+#         courseid = user.metadata.get('courseid')
+#         print(f"User: {user} \n Role: {role} \n Provider: {provider} \n Platform ID: {platform_id} \n Course ID: {courseid}")
 
 @cl.on_chat_start
 async def on_chat_start():
     user = cl.user_session.get("user")
+    print(f"User: {user} \n Role: {role} \n Provider: {provider} \n Platform ID: {platform_id} \n Course ID: {courseid}")
+
     # chat_profile = cl.user_session.get("chat_profile")
     # await cl.Message(
     #     content=f"starting chat with {user.identifier} using the {chat_profile} chat profile"
@@ -160,7 +162,7 @@ async def on_message(message: cl.Message):
 @cl.on_chat_end
 def end():
     logger = cl.user_session.get("logger")
-    user = current_user
+    user = cl.user_session.get("user")
     print(f"Goodbye {SESSION_ID}")
     logger.debug(f"Chat ended by user {user.identifier}")
 
