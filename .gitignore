@@ -156,3 +156,6 @@ cython_debug/
 
 # MacOS
 .DS_Store
+
+# Do not commit any local chainlit folders.
+.chainlit/
