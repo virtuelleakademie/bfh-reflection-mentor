@@ -7,3 +7,7 @@ a[href*='https://github.com/Chainlit/chainlit'] {
 #root header.MuiAppBar-root {
     display: none !important;
 }
+
+.details-button {
+    display: none !important;
+}
