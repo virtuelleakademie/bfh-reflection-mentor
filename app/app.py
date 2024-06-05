@@ -18,8 +18,9 @@ from message_logger import (
 )
 
 from reflection_prompts import (
-    initial_messages,
-    mentor_message
+    initial_messages_learning_techniques as initial_messages,
+    learning_techniques_context,
+    learning_techniques as system_message
 )
 
 from textwrap import dedent
@@ -40,7 +41,7 @@ def setup_runnable():
                             )
     prompt = ChatPromptTemplate.from_messages(
         [
-            ("system", mentor_message),
+            ("system", system_message),
             MessagesPlaceholder(variable_name="history"),
             ("human", "{question}"),
         ]
