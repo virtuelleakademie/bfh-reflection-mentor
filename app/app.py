@@ -77,8 +77,10 @@ async def on_chat_start():
     #can use a generated message. This works, but results in
     #`load_memory_variables` and `AzureChatOpenAI` being shown in the UI.
 
+    # We need this initial message even though we don't send it due to flakiness of reliability with socket emitter.
+    initial_message = dedent(' '.join(random.choice(initial_messages).split()))
+
     # DISABLED - INITIAL MESSAGE GETS SET BY FRONT END CLIENT, NOT BACKEND
-    # initial_message = dedent(' '.join(random.choice(initial_messages).split()))
     # msg = cl.Message(content=initial_message, disable_feedback=True)
     # await msg.send()
 
@@ -97,11 +99,16 @@ async def on_chat_start():
     #     await res.stream_token(chunk)
 
     # await res.send()
-    # memory.chat_memory.add_ai_message(initial_message) # pyright: ignore
-    # mentor_log_message = MentorLogMessage( # pyright: ignore
-    #     message=initial_message
-    #     )
-    # logger.info(mentor_log_message.json())
+
+    # We still need to add the ai message to chat_memory even though it is generated on the front end, otherwise the response
+    # from the chat mentory might not make sense - i.e. it needs context.
+    # It doesn't matter that the initial message here might be different to what is displayed in the front end as the initial messages
+    # are synonymous.
+    memory.chat_memory.add_ai_message(initial_message) # pyright: ignore
+    mentor_log_message = MentorLogMessage( # pyright: ignore
+        message=initial_message
+        )
+    logger.info(mentor_log_message.json())
 
 
 
