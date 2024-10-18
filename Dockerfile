@@ -13,7 +13,7 @@ RUN if [ -z "$(command -v npm)" ]; then \
     fi \
     && npm --version
 RUN npm install -g pnpm
-RUN git clone --branch with_post_auth --depth 1 https://github.com/virtuelleakademie/chainlit.git
+RUN git clone --branch wip_add_message_direct --depth 1 https://github.com/virtuelleakademie/chainlit.git
 RUN mkdir -p chainlit/frontend/dist && mkdir -p chainlit/libs/copilot/dist
 RUN cd chainlit/backend && pip install -e .
 RUN cd chainlit/frontend && pnpm install --no-frozen-lockfile && pnpm run build
@@ -22,7 +22,8 @@ RUN cd chainlit/frontend && pnpm install --no-frozen-lockfile && pnpm run build
 RUN mkdir -p /var/log/lancedb
 RUN pip install -r requirements.txt
 RUN chainlit init
-COPY ./config.toml /usr/app/.chainlit/config.toml
+# Add customized chainlit stuff into the .chainlit folder.
+COPY ./app/.chainlit /usr/app/.chainlit
 RUN chmod 755 /usr/app/.chainlit/config.toml
 
 ENTRYPOINT ["chainlit", "run", "app.py", "--host=0.0.0.0", "--port=80", "--headless"]
