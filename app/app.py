@@ -36,7 +36,7 @@ def setup_runnable():
     memory = cl.user_session.get("memory")
     model = AzureChatOpenAI(temperature = 0.4,
                             streaming=True,
-                            openai_api_version="2024-02-15-preview",
+                            openai_api_version="2024-05-01-preview",
                             azure_deployment="gpt-4o-2024-08-06",
                             )
     prompt = ChatPromptTemplate.from_messages(
